@@ -36,7 +36,7 @@ public class Challenge1{
 		//Challenge Part 3: Convert KM to Miles + print distance in miles + print age in seconds + print age milisecnds + display user age in hex and binary
 		MilesCalculator milesCalc = new MilesCalculator();
 		double distanceInMiles = milesCalc.convertToMiles(distance_from_store);
-		System.out.println('\n' + "In Miles, this is hw far your favourite stoe is from home: " + distanceInMiles);
+		System.out.println('\n' + "In Miles, this is how far your favourite store is from home: " + distanceInMiles);
 		
 		AgeCalculator ageCalc = new AgeCalculator();
 		System.out.println('\n' + "Your Age in Seconds: " + ageCalc.ageInSeconds(yearsold));
@@ -48,7 +48,7 @@ public class Challenge1{
 	
 }
 
-public class Prompt{
+class Prompt{
 	
 		Scanner scannerInput = new Scanner(System.in);
 
@@ -78,7 +78,7 @@ public class Prompt{
 	
 }
 
-public class DateValidator{
+class DateValidator{
 	
 	public String dOB;
 	
@@ -91,18 +91,30 @@ public class DateValidator{
 	}
 	
 	public String returnDay(String date){
-		String day = "" + date.charAt(0) + date.charAt(1);
-		return day;
+		try {
+			String day = "" + date.charAt(0) + date.charAt(1);
+			return day;
+		} catch (StringIndexOutOfBoundsException e) {
+			return "invalid date";
+		}
 	}
 	
 	public String returnMonth(String date){
-		String month = date.split("/")[1];
-		return month;
+		try {
+			String month = date.split("/")[1];
+			return month;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return "invalid date";
+		}
 	}
 	
 	public String returnYear(String date){
-		String year = date.split("/")[2];
-		return year;
+		try {
+			String year = date.split("/")[2];
+			return year;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return "invalid date";
+		}
 	}
 	
 	public boolean isValid(String date){
@@ -118,10 +130,12 @@ public class DateValidator{
 			{
 				dOB = date;
 			}else{
+				System.out.println("Your input was invalid. This is your input: " + date);
 				dOB = systemPrompt.prompt('\n' +"Please input numeric values(DD/MM/YYYY)");
 				isValid(dOB);
 			}
 		}else{
+			System.out.println("Your input was invalid. This is your input: " + date);
 			dOB = systemPrompt.prompt('\n' + "Please input valid date in valid format (DD/MM/YYYY)");
 			isValid(dOB);
 		}
@@ -135,7 +149,7 @@ public class DateValidator{
 	
 }
 
-public class NumberValidator{
+class NumberValidator{
 	
 	public boolean isNumeric(String date){
         return Pattern.matches("\\d+", date);
@@ -143,7 +157,7 @@ public class NumberValidator{
 	
 }
 
-public class MilesCalculator{
+class MilesCalculator{
 	
 	public double convertToMiles(String distance){
 		try {
@@ -160,7 +174,7 @@ public class MilesCalculator{
 	
 }
 
-public class AgeCalculator{
+class AgeCalculator{
 	
 	public long ageInSeconds(int yearsold){
         return yearsold*365*24*60*60;
